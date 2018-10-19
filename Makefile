@@ -1,13 +1,13 @@
 All: snake
 
 snake: main.o function.o 
-	gcc -Wall -o snake main.o snake.o 
+	g++ -Wall -o snake main.o function.o -lncurses 
 
-main.o: main.c
-	gcc -Wall -o main.o -c main.c
+main.o: main.cpp
+	g++ -Wall -o main.o -c main.cpp
 
-function.o: function.c
-	gcc -Wall -o function.o -c function.c
+function.o: function.cpp
+	g++ -Wall -o function.o -c function.cpp
 
 clean:
 	rm -rf *.o

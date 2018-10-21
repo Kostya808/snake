@@ -30,9 +30,9 @@ public:
 	char course;
 	Body *next;
 	Body *tail;
-	Head() : x(10), y(10), new_x(10), new_y(10) {
+	Head(int add_x, int add_y) : x(add_x), y(add_y), new_x(add_x), new_y(add_y) {
 		course = 't';
-		tail = new Body(10, 10);
+		tail = new Body(add_x, add_y);
 		score = 0;
 	}
 	~Head()	{
@@ -47,7 +47,7 @@ class Fields
 public:
 	field **snake_matrix;
 	int size;	
-	Fields() : size(20) {
+	Fields() : size(40) {
 		snake_matrix = new field* [size];
 		
 		for (i = 0; i < size; i++) {
@@ -71,8 +71,8 @@ public:
 };
 
 int kbhit();
-void print(Fields * s, Head * h);
-void control(Head *h);
+void print(Fields * s, Head * h1, Head * h2);
+void control(Head *h1, Head *h2);
 int automotion(Fields * s, Head *h);
 
 #endif

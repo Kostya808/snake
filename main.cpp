@@ -5,19 +5,24 @@
 #include <ncurses.h>
 
 int main() {
-	int flag = 1;
+	int flag1 = 1, flag2 =1, pause = 170000;
 	Fields s;
 	Fruit f;
-	Head h;
-	s.initial_snake_making(&h);
+	Head h1(20, 30);
+	Head h2(20, 10);
+	s.initial_snake_making(&h1);
+	s.initial_snake_making(&h2);
 	f.fruit_making(&s);
-	while(flag == 1) {
-		print(&s, &h);
+	while(flag1 == 1 && flag2 == 1) {
+		print(&s, &h1, &h2);
 		f.fruit_print(&s);
-		control(&h);
-		flag = automotion(&s, &h);
-		s.field_update(&f, &h);
-		usleep(150000);
+		control(&h1, &h2);
+		flag1 = automotion(&s, &h1);
+		flag2 = automotion(&s, &h2);
+		s.field_update(&f, &h1);
+		s.field_update(&f, &h2);
+		usleep(170000);
+		//pause -= 1000;
 	}
    endwin();
 	return 0;

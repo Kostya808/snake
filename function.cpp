@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <string.h>
  
-void print(Fields * s, Head * h) {
+void print(Fields * s, Head * h1, Head * h2) {
 	initscr();
 	clear();
 	int i, j;
@@ -24,7 +24,8 @@ void print(Fields * s, Head * h) {
 		}
 		printw("\n");
 	}
-        printw("Score: %d", h->score);
+        printw("Score player 1: %d\n", h1->score);
+        printw("Score player 2: %d\n", h2->score);
     endwin();
 }
 
@@ -39,7 +40,7 @@ int kbhit(){
     }
 }
 
-void control(Head *h) {
+void control(Head *h1, Head*h2) {
 	noecho(); 
 	keypad(stdscr, true); 
 	cbreak();
@@ -47,16 +48,28 @@ void control(Head *h) {
 	if(kbhit() == 1) {
         switch(getch()){
             case KEY_UP:
-      	        h->course = 't';
+      	        h1->course = 't';
                 break;
             case KEY_DOWN:
-      	        h->course = 'd';
+      	        h1->course = 'd';
                 break;
             case KEY_RIGHT:
-      	        h->course = 'r';
+      	        h1->course = 'r';
                 break;
             case KEY_LEFT:
-      	        h->course = 'l';
+      	        h1->course = 'l';
+                break;
+            case 119:
+                h2->course = 't';
+                break;
+            case 115:
+                h2->course = 'd';
+                break;
+            case 100:
+                h2->course = 'r';
+                break;
+            case 97:
+                h2->course = 'l';
                 break;
         }
 	}

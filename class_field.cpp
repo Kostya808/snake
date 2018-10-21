@@ -2,12 +2,19 @@
 #include "class_fruit.h"
 #include <stdio.h>
 
-void Fields::field_update(Fruit *f) {
+void Fields::initial_snake_making(Head *h){
+	snake_matrix[h->x][h->y].type = 1;
+	h->next = create_body(h);
+	create(h->next, h);
+	create(h->next, h);
+}
+
+void Fields::field_update(Fruit *f, Head *h) {
 	int buf_x, buf_y, buf2_x, buf2_y;
-	Body* bypass = head1.next;
-	buf_x = head1.x;
-	buf_y = head1.y;
-	if(head1.x != head1.new_x || head1.y != head1.new_y) {
+	Body* bypass = h->next;
+	buf_x = h->x;
+	buf_y = h->y;
+	if(h->x != h->new_x || h->y != h->new_y) {
 		while(bypass != NULL) {
 			buf2_x = bypass->x;
 			buf2_y = bypass->y;
@@ -19,72 +26,72 @@ void Fields::field_update(Fruit *f) {
 			buf_x = buf2_x;
 			buf_y = buf2_y;
 		}
-		head1.tail->x = buf2_x;
-		head1.tail->y = buf2_y;
+		h->tail->x = buf2_x;
+		h->tail->y = buf2_y;
 		buf2_x = 0;
 		buf2_x = 0;
-		if (f->x == head1.new_x && f->y == head1.new_y) {
-			eating_fruit(f);
+		if (f->x == h->new_x && f->y == h->new_y) {
+			eating_fruit(f, h);
 		}
-		snake_matrix[head1.new_x][head1.new_y].type = 1;
-		head1.x = head1.new_x; 
-		head1.y = head1.new_y;
+		snake_matrix[h->new_x][h->new_y].type = 1;
+		h->x = h->new_x; 
+		h->y = h->new_y;
 	}
 }
 
-void Fields::eating_fruit(Fruit *f) {
-	head1.score += f->score;
+void Fields::eating_fruit(Fruit *f, Head *h) {
+	h->score += f->score;
 	if (f->growth == 1) {
-		create(head1.next);
+		create(h->next, h);
 	}
 	else if (f->growth == 2) {
-		create(head1.next);
-		create(head1.next);
+		create(h->next, h);
+		create(h->next, h);
 	}
 	f->life = 0;
 	f->x = size;
 	f->y = size;
 }
 
-void Fields::create(Body *&node) {
+void Fields::create(Body *&node, Head *h) {
 	if(node == NULL) {
-		node = create_body();
+		node = create_body(h);
 	}
 	else {
-		create(node->next);
+		create(node->next, h);
 	}
 }
 
-Body* Fields::create_body() {
+Body* Fields::create_body(Head *h) {
 	int x, y, flag = 0;
-	if (head1.tail->x < size -1) {
-		if (snake_matrix[head1.tail->x + 1][head1.tail->y].type == 0 && flag == 0) {
-			x = head1.tail->x + 1;
-			y = head1.tail->y;
+	if (h->tail->x < size -1) {
+		if (snake_matrix[h->tail->x + 1][h->tail->y].type == 0 && flag == 0) {
+			x = h->tail->x + 1;
+			y = h->tail->y;
 			flag = 1;
 		}
 	}
-		if (snake_matrix[head1.tail->x - 1][head1.tail->y].type == 0 && flag == 0) {
-		x = head1.tail->x - 1;
-		y = head1.tail->y;
+		if (snake_matrix[h->tail->x - 1][h->tail->y].type == 0 && flag == 0) {
+		x = h->tail->x - 1;
+		y = h->tail->y;
 		flag = 1;
 	}
-	if (head1.tail->y < size - 1) {
-		if (snake_matrix[head1.tail->x][head1.tail->y + 1].type == 0 && flag == 0) {
-			x = head1.tail->x;
-			y = head1.tail->y + 1;
+	if (h->tail->y < size - 1) {
+		if (snake_matrix[h->tail->x][h->tail->y + 1].type == 0 && flag == 0) {
+			x = h->tail->x;
+			y = h->tail->y + 1;
 			flag = 1;
 		}
 	}
-		if (snake_matrix[head1.tail->x][head1.tail->y - 1].type == 0 && flag == 0) {
-		x = head1.tail->x;
-		y = head1.tail->y - 1;
+		if (snake_matrix[h->tail->x][h->tail->y - 1].type == 0 && flag == 0) {
+		x = h->tail->x;
+		y = h->tail->y - 1;
 		flag = 1;
 	}
 	if(flag == 1) {
 		Body* body = new Body(x, y);
-		head1.tail->x = x;
-		head1.tail->y = y;
+		h->tail->x = x;
+		h->tail->y = y;
 		return body;
 	}
 	return NULL;

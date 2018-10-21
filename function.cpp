@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <string.h>
  
-void print(Fields * s) {
+void print(Fields * s, Head * h) {
 	initscr();
 	clear();
 	int i, j;
@@ -24,11 +24,11 @@ void print(Fields * s) {
 		}
 		printw("\n");
 	}
+        printw("Score: %d", h->score);
     endwin();
 }
 
-int kbhit(void)
-{
+int kbhit(){
     int ch = getch();
 
     if (ch != ERR) {
@@ -39,42 +39,43 @@ int kbhit(void)
     }
 }
 
-void control(Fields * s) {
+void control(Head *h) {
 	noecho(); 
 	keypad(stdscr, true); 
 	cbreak();
     nodelay(stdscr, TRUE);
 	if(kbhit() == 1) {
-    switch(getch()){
-      case KEY_UP:
-      	s->head1.course = 't';
-        break;
-      case KEY_DOWN:
-      	s->head1.course = 'd';
-        break;
-      case KEY_RIGHT:
-      	s->head1.course = 'r';
-        break;
-      case KEY_LEFT:
-      	s->head1.course = 'l';
-        break;
-    }
+        switch(getch()){
+            case KEY_UP:
+      	        h->course = 't';
+                break;
+            case KEY_DOWN:
+      	        h->course = 'd';
+                break;
+            case KEY_RIGHT:
+      	        h->course = 'r';
+                break;
+            case KEY_LEFT:
+      	        h->course = 'l';
+                break;
+        }
 	}
 }
 
-int automotion(Fields * s) {
-	if(s->head1.course == 't') 
-      		s->head1.new_x = s->head1.x - 1;
-	if(s->head1.course == 'd') 
-      		s->head1.new_x = s->head1.x + 1;
-	if(s->head1.course == 'r') 
-     		s->head1.new_y = s->head1.y + 1;
-	if(s->head1.course == 'l') 
-      		s->head1.new_y = s->head1.y - 1;
-    if(s->snake_matrix[s->head1.new_x][s->head1.new_y].type != 0 && 
-        s->snake_matrix[s->head1.new_x][s->head1.new_y].type != 3 &&
-        s->snake_matrix[s->head1.new_x][s->head1.new_y].type != 4) 
+int automotion(Fields * s, Head *h) {
+	if(h->course == 't') 
+      		h->new_x = h->x - 1;
+	if(h->course == 'd') 
+      		h->new_x = h->x + 1;
+	if(h->course == 'r') 
+     		h->new_y = h->y + 1;
+	if(h->course == 'l') 
+      		h->new_y = h->y - 1;
+    if(s->snake_matrix[h->new_x][h->new_y].type != 0 && 
+        s->snake_matrix[h->new_x][h->new_y].type != 3 &&
+        s->snake_matrix[h->new_x][h->new_y].type != 4) {
         return 0;
+    }
     return 1;
 }
 

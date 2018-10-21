@@ -8,15 +8,17 @@ int main() {
 	int flag = 1;
 	Fields s;
 	Fruit f;
+	Head h;
+	s.initial_snake_making(&h);
 	f.fruit_making(&s);
 	while(flag == 1) {
-		print(&s);
-		s.field_update(&f);
+		print(&s, &h);
 		f.fruit_print(&s);
-		control(&s);
-		usleep(200000);
-		flag = automotion(&s);
+		control(&h);
+		flag = automotion(&s, &h);
+		s.field_update(&f, &h);
+		usleep(150000);
 	}
-    endwin();
+   endwin();
 	return 0;
 }

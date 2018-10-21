@@ -1,7 +1,6 @@
 #ifndef CLASS_FRUIT_H
 #define CLASS_FRUIT_H
 
-#include "class_field.h"
 #include "classes.h"
 
 class Fruit

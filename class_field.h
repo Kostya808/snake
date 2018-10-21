@@ -45,7 +45,6 @@ class Fields
 {
 	int i, j;
 public:
-	Head head1;
 	field **snake_matrix;
 	int size;	
 	Fields() : size(20) {
@@ -60,24 +59,20 @@ public:
 				if(i == 0 || i == size - 1 || j == 0 || j == size - 1)
 					snake_matrix[i][j].type = 5;
 			}
-
-		snake_matrix[head1.x][head1.y].type = 1;
-		head1.next = create_body();
-		create(head1.next);
-		create(head1.next);
 	}
 	~Fields() {
 		delete snake_matrix;
 	}
-	void field_update(Fruit *f);
-	Body* create_body();
-	void eating_fruit(Fruit *f);
-	void create(Body *&node);
+	void initial_snake_making(Head *h);
+	void field_update(Fruit *f, Head *h);
+	Body* create_body(Head *h);
+	void eating_fruit(Fruit *f, Head *h);
+	void create(Body *&node, Head *h);
 };
 
 int kbhit();
-void print(Fields * s);
-void control(Fields * s);
-int automotion(Fields * s);
+void print(Fields * s, Head * h);
+void control(Head *h);
+int automotion(Fields * s, Head *h);
 
 #endif

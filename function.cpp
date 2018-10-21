@@ -1,25 +1,29 @@
-#include "function.h"
+#include "class_field.h"
 #include <stdio.h>
 #include <ncurses.h>
 #include <string.h>
-
-
+ 
 void print(Fields * s) {
 	initscr();
 	clear();
 	int i, j;
 	for(i = 0; i < s->size; i++) {
 		for(j = 0; j < s->size; j++) {
-			if(s->snake_matrix[i][j] == 1)
+			if(s->snake_matrix[i][j].type == 1)
 				printw("@ ");
-			else
-				printw("  ", s->snake_matrix[i][j]);
-			if(j == s->size - 1)
-				printw("|");
+			else if(s->snake_matrix[i][j].type == 2)
+                printw("o ");
+            else if(s->snake_matrix[i][j].type == 3)
+                printw("a ");
+            else if(s->snake_matrix[i][j].type == 4)
+                printw("b ");
+            else if(s->snake_matrix[i][j].type == 5)
+                printw("##");
+            else
+				printw("  ");
 		}
 		printw("\n");
 	}
-	printw("-----------------------------------------\n");
     endwin();
 }
 
@@ -43,44 +47,34 @@ void control(Fields * s) {
 	if(kbhit() == 1) {
     switch(getch()){
       case KEY_UP:
-      	s->head.course = 't';
+      	s->head1.course = 't';
         break;
       case KEY_DOWN:
-      	s->head.course = 'd';
+      	s->head1.course = 'd';
         break;
       case KEY_RIGHT:
-      	s->head.course = 'r';
+      	s->head1.course = 'r';
         break;
       case KEY_LEFT:
-      	s->head.course = 'l';
+      	s->head1.course = 'l';
         break;
     }
 	}
 }
 
-void automotion(Fields * s) {
-	if(s->head.course == 't') {
-      	if(s->head.x == 0)
-      		s->head.new_x = s->size - 1;
-      	else
-      		s->head.new_x = s->head.x - 1;
-    }
-	if(s->head.course == 'd') {
-      	if(s->head.x == s->size - 1)
-      		s->head.new_x = 0;
-      	else
-      		s->head.new_x = s->head.x + 1;
-    }
-	if(s->head.course == 'r') {
-      	if(s->head.y == s->size - 1) 
-      		s->head.new_y = 0;
-      	else
-     		s->head.new_y = s->head.y + 1;
-    }
-	if(s->head.course == 'l') {
-      	if(s->head.y == 0)
-      		s->head.new_y = s->size - 1;
-      	else
-      		s->head.new_y = s->head.y - 1;
-    }
+int automotion(Fields * s) {
+	if(s->head1.course == 't') 
+      		s->head1.new_x = s->head1.x - 1;
+	if(s->head1.course == 'd') 
+      		s->head1.new_x = s->head1.x + 1;
+	if(s->head1.course == 'r') 
+     		s->head1.new_y = s->head1.y + 1;
+	if(s->head1.course == 'l') 
+      		s->head1.new_y = s->head1.y - 1;
+    if(s->snake_matrix[s->head1.new_x][s->head1.new_y].type != 0 && 
+        s->snake_matrix[s->head1.new_x][s->head1.new_y].type != 3 &&
+        s->snake_matrix[s->head1.new_x][s->head1.new_y].type != 4) 
+        return 0;
+    return 1;
 }
+

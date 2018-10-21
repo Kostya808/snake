@@ -1,14 +1,22 @@
-#include "function.h"
+#include "class_field.h"
+#include "class_fruit.h"
 #include <unistd.h>
+#include <stdio.h>
+#include <ncurses.h>
 
 int main() {
+	int flag = 1;
 	Fields s;
-	while(1) {
-	print(&s);
-	automotion(&s);
-	s.field_update();
-	control(&s);
-	usleep(170000);
+	Fruit f;
+	f.fruit_making(&s);
+	while(flag == 1) {
+		print(&s);
+		s.field_update(&f);
+		f.fruit_print(&s);
+		control(&s);
+		usleep(200000);
+		flag = automotion(&s);
 	}
+    endwin();
 	return 0;
 }

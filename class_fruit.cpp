@@ -1,7 +1,6 @@
-#include "class_field.h"
-#include "class_fruit.h"
 #include <ctime>
 #include <cstdlib>
+#include "class_field.h"
 
 void Fruit::fruit_making(Fields *s) {
 	int flag = 1, rand_type;
@@ -9,7 +8,7 @@ void Fruit::fruit_making(Fields *s) {
 	while(flag == 1) {
 		x = rand() % s->size;
 		y = rand() % s->size;
-		if(s->snake_matrix[x][y].type == 0)
+		if(s->snake_matrix[x][y] == 0)
 			flag = 0;
 	}
 	rand_type = rand() % 10;
@@ -30,10 +29,8 @@ void Fruit::fruit_print(Fields * s) {
 	if (life != 1) {
 		fruit_making(s);
   	}
-	else {
-		if(type == 'a')
-			s->snake_matrix[x][y].type = 3;
-		else
-			s->snake_matrix[x][y].type = 4;
-	}
+	if(type == 'a')
+		s->snake_matrix[x][y] = 3;
+	else
+		s->snake_matrix[x][y] = 4;	
 }

@@ -1,23 +1,26 @@
-#include "class_field.h"
-#include <stdio.h>
 #include <ncurses.h>
-#include <string.h>
- 
+#include "class_field.h"
+#include "class_head.h"
+
 void print(Fields * s, Head * h1, Head * h2) {
 	initscr();
 	clear();
 	int i, j;
 	for(i = 0; i < s->size; i++) {
 		for(j = 0; j < s->size; j++) {
-			if(s->snake_matrix[i][j].type == 1)
+			if(s->snake_matrix[i][j] == h1->type_head)
 				printw("@ ");
-			else if(s->snake_matrix[i][j].type == 2)
-                printw("o ");
-            else if(s->snake_matrix[i][j].type == 3)
-                printw("a ");
-            else if(s->snake_matrix[i][j].type == 4)
-                printw("b ");
-            else if(s->snake_matrix[i][j].type == 5)
+            else if(s->snake_matrix[i][j] == h2->type_head)
+                printw("Q ");
+			else if(s->snake_matrix[i][j] == h1->type_body)
+                printw("O ");
+            else if(s->snake_matrix[i][j] == h2->type_body)
+                printw("0 ");
+            else if(s->snake_matrix[i][j] == 3)
+                printw("A ");
+            else if(s->snake_matrix[i][j] == 4)
+                printw("B ");
+            else if(s->snake_matrix[i][j] == 5)
                 printw("##");
             else
 				printw("  ");
@@ -84,11 +87,40 @@ int automotion(Fields * s, Head *h) {
      		h->new_y = h->y + 1;
 	if(h->course == 'l') 
       		h->new_y = h->y - 1;
-    if(s->snake_matrix[h->new_x][h->new_y].type != 0 && 
-        s->snake_matrix[h->new_x][h->new_y].type != 3 &&
-        s->snake_matrix[h->new_x][h->new_y].type != 4) {
-        return 0;
+    if((s->snake_matrix[h->new_x][h->new_y] != 0 && 
+        s->snake_matrix[h->new_x][h->new_y] != 3 &&
+        s->snake_matrix[h->new_x][h->new_y] != 4)) {
+        if(h->new_x == h->next->x && h->new_y == h->next->y) {
+            if(h->course == 't') {
+                h->new_x = h->x + 1;
+                h->new_y = h->y;
+                h->course = 'd';
+            }
+            else if(h->course == 'd') {
+                h->new_x = h->x - 1;
+                h->new_y = h->y;
+                h->course = 't';
+            }
+            else if(h->course == 'r') {
+                h->new_x = h->x;
+                h->new_y = h->y - 1;
+                h->course = 'l';
+            }
+            else {
+                h->new_x = h->x;
+                h->new_y = h->y + 1;
+                h->course = 'r';
+            }
+        }
+        else
+            return 0;
     }
     return 1;
 }
 
+int check_head(Head *h1, Head *h2) {
+    if(h1->x == h2->x && h1->y == h2->y) {
+        return 0;
+    }
+    return 1;
+}

@@ -2,12 +2,13 @@
 #define CLASS_FRUIT_H
 
 #include "classes.h"
+#include "base_class.h" 
 
-class Fruit
+class Fruit : public Base
 {
 public:
 	char type;
-	int score, growth, x, y, life;
+	int score, growth, life;
 	Fruit() {}
 	~Fruit() {}
 	void fruit_making(Fields * s);

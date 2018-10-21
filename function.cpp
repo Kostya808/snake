@@ -32,7 +32,7 @@ void print(Fields * s, Head * h1, Head * h2) {
     endwin();
 }
 
-int kbhit(){
+int kbhit(){ //Функция проверки на нажатость клавиши
     int ch = getch();
 
     if (ch != ERR) {
@@ -87,10 +87,10 @@ int automotion(Fields * s, Head *h) {
      		h->new_y = h->y + 1;
 	if(h->course == 'l') 
       		h->new_y = h->y - 1;
-    if((s->snake_matrix[h->new_x][h->new_y] != 0 && 
+    if((s->snake_matrix[h->new_x][h->new_y] != 0 && //проверка на возможность хода
         s->snake_matrix[h->new_x][h->new_y] != 3 &&
-        s->snake_matrix[h->new_x][h->new_y] != 4)) {
-        if(h->new_x == h->next->x && h->new_y == h->next->y) {
+        s->snake_matrix[h->new_x][h->new_y] != 4)) { //
+        if(h->new_x == h->next->x && h->new_y == h->next->y) { //При случае движения в обратную сторону двигаться дальше
             if(h->course == 't') {
                 h->new_x = h->x + 1;
                 h->new_y = h->y;

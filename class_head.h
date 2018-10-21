@@ -1,29 +1,32 @@
 #ifndef CLASS_HEAD_H
 #define CLASS_HEAD_H
 
-class Body
+#include "base_class.h" 
+
+class Body : public Base
 {
 public:
-	int x, y;
 	Body *next;
 	Body(int set_x, int set_y) {
 		next = NULL;
 		x = set_x;
 		y = set_y;
 	}
-	~Body() {}	
+	~Body() {
+		delete next;
+	}	
 };
 
-class Head
+class Head : public Base
 {
 public:
-	int x, y, new_x, new_y, score, type_body, type_head;
+	int new_x, new_y, score, type_body, type_head;
 	char course;
 	Body *next;
 	Body *tail;
-	Head(int add_x, int add_y, int type1, int type2) : x(add_x), y(add_y), new_x(add_x), new_y(add_y) {
-		type_head = type1;
-		type_body = type2;
+	Head(int add_x, int add_y, int t1, int t2) : new_x(add_x), new_y(add_y), score(0), type_body(t2), type_head(t1) {
+		x = add_x;
+		y = add_y;
 		course = 't';
 		tail = new Body(add_x, add_y);
 		score = 0;

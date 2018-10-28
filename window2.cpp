@@ -16,7 +16,7 @@ Window2::~Window2()
 
 void Window2::on_pushButton_clicked()
 {
-    View v;
-    v.show();
+//    View v;
+//    v.show();
     //QGraphicsView->QGraphicsScene->QGraphicsItem
 }

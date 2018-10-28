@@ -32,7 +32,8 @@ SOURCES += \
     function.cpp \
     main7.cpp \
     window2.cpp \
-    view.cpp
+    view.cpp \
+    button.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     class_head.h \
     function.h \
     window2.h \
-    view.h
+    view.h \
+    button.h
 
 FORMS += \
         mainwindow.ui \
@@ -53,3 +55,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    pics.qrc

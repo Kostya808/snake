@@ -8,7 +8,7 @@ class Body : public Base
 public:
 	Body *next;
 	Body(int set_x, int set_y) {
-		next = NULL;
+        next = nullptr;
 		x = set_x;
 		y = set_y;
 	}

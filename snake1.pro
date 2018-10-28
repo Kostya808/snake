@@ -30,7 +30,9 @@ SOURCES += \
     class_field.cpp \
     class_fruit.cpp \
     function.cpp \
-    main7.cpp
+    main7.cpp \
+    window2.cpp \
+    widget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,10 +41,14 @@ HEADERS += \
     class_field.h \
     class_fruit.h \
     class_head.h \
-    function.h
+    function.h \
+    window2.h \
+    widget.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    window2.ui \
+    widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -32,7 +32,7 @@ SOURCES += \
     function.cpp \
     main7.cpp \
     window2.cpp \
-    widget.cpp
+    view.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,12 +43,11 @@ HEADERS += \
     class_head.h \
     function.h \
     window2.h \
-    widget.h
+    view.h
 
 FORMS += \
         mainwindow.ui \
-    window2.ui \
-    widget.ui
+    window2.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

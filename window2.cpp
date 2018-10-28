@@ -1,5 +1,6 @@
 #include "window2.h"
 #include "ui_window2.h"
+#include "view.h"
 
 Window2::Window2(QWidget *parent) :
     QDialog(parent),
@@ -15,5 +16,7 @@ Window2::~Window2()
 
 void Window2::on_pushButton_clicked()
 {
-
+    View v;
+    v.show();
+    //QGraphicsView->QGraphicsScene->QGraphicsItem
 }

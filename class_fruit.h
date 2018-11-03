@@ -7,12 +7,16 @@
 class Fruit : public Base
 {
 public:
+    Fruit() {}
+    void set_x();
+    void set_y();
+    void get_x();
+    void get_y();
 	char type;
 	int score, growth, life;
-	Fruit() {}
-	~Fruit() {}
 	void fruit_making(Fields * s);
 	void fruit_print(Fields * s);
+    ~Fruit() {}
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define WINDOW2_H
 
 #include <QDialog>
+#include "view.h"
 
 namespace Ui {
 class Window2;
@@ -20,6 +21,7 @@ private slots:
 
 private:
     Ui::Window2 *ui;
+    View v;
 };
 
 #endif // WINDOW2_H

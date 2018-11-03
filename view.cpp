@@ -22,18 +22,25 @@ void View::_init_view_elements() {
     mBtnPause.setPos(45, 45);
     mBtnPause.setGeometry(100, 50);
     connect(&mBtnPause, &button::btnMouseReleaseEvent, this, &View::btn_Pause_clicked);
-    mBtnRestart.setPos(150, 45);
-    mBtnRestart.setGeometry(100, 50);
-    connect(&mBtnRestart, &button::btnMouseReleaseEvent, this, &View::btn_Restart_clicked);
+    //mBtnRestart.setPos(150, 45);
+    //mBtnRestart.setGeometry(100, 50);
+    //connect(&mBtnRestart, &button::btnMouseReleaseEvent, this, &View::btn_Restart_clicked);
+    Ssnake.setPos(100, 300);
     mScene.addItem(&mBtnPause);
-    mScene.addItem(&mBtnRestart);
+    mScene.addItem(&Ssnake);
+    //mScene.addItem(&mBtnRestart);
 }
 
 void View::btn_Pause_clicked(Qt::MouseButton) {
-    qWarning() <<"yt";
+    pause_menu = new Window3(this);
+    pause_menu->show();
 }
 
-void View::btn_Restart_clicked(Qt::MouseButton) {
-    qWarning() <<"ty";
+void View::keyReleaseEvent(QKeyEvent *apEvent) {
+
 }
+
+//void View::btn_Restart_clicked(Qt::MouseButton) {
+//    qWarning() <<"ty";
+//}
 

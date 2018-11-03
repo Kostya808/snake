@@ -26,6 +26,9 @@ public:
         if (Window2->objectName().isEmpty())
             Window2->setObjectName(QStringLiteral("Window2"));
         Window2->resize(400, 300);
+        QFont font;
+        font.setFamily(QStringLiteral("SignPainter'sGothicIt.Sh.SC JL"));
+        Window2->setFont(font);
         pushButton = new QPushButton(Window2);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(160, 70, 80, 25));

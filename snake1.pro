@@ -33,7 +33,9 @@ SOURCES += \
     main7.cpp \
     window2.cpp \
     view.cpp \
-    button.cpp
+    button.cpp \
+    window3.cpp \
+    class_head.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,11 +47,13 @@ HEADERS += \
     function.h \
     window2.h \
     view.h \
-    button.h
+    button.h \
+    window3.h
 
 FORMS += \
         mainwindow.ui \
-    window2.ui
+    window2.ui \
+    window3.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

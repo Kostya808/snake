@@ -3,77 +3,35 @@
 #include <QPainter>
 #include <cstdio>
 
-//Body::Body(int set_x, int set_y) {
-//    mPixMap.load(":/Snake.png");
+Head::Head() {
 
-//    mWidth = 64;
-//    mHeight = 64;
-//    mFrames = 16;
-//    mOffset = 65;
-//    mBorder = 0;
-////    next = nullptr;
-////    set_x(set_x);
-////    set_y(set_y);
-////    setx(set_x);
-////    sety(set_y);
-//    connect(&mTimer, &QTimer::timeout, this, &Body::next_frame);
-//    mTimer.start(100);
-//}
+    mvPixmaps.reserve((int)eState::End);    // размер вектора соответствует кол-ву состояний
 
-//void Body::setx(int set_x) {
-//    coox = set_x;
-//}
-//void Body::sety(int set_y) {
-//    cooy = set_y;
-//}
+    QPair<QPixmap, spriteData> tmp;         // буферная пара
 
-////int Body::get_x() {
-////    return coox;
-////}
-//Head::
-////void Body::get_y() {
+    tmp.first.load(":/move_head_up.png");   // загрузка спрайта в пару
+    mvPixmaps.push_back(tmp);               // добавление пары в вектор класса (далее то же самое)
 
-////}
-
-//Body::~Body() {
-//    delete next;
-//}
-
-////void Body::next_frame() {
-
-////    QGraphicsItem::update;
-////}
-
-Head::Head(/*int add_x, int add_y, int t1, int t2*/) /*: new_x(add_x), new_y(add_y), score(0), type_body(t2), type_head(t1)*/ {
-//    x = add_x;
-//    y = add_y;
-//    course = 't';
-//    tail = new Body(add_x, add_y);
-//    score = 0;
-    mvPixmaps.reserve((int)eState::End);
-
-    QPair<QPixmap, spriteData> tmp;
-
-    tmp.first.load(":/Snake.png");
-    tmp.second.mWidth = 16;
-    tmp.second.mHeight = 32;
-    tmp.second.mCurrentFrame = 0;
-    tmp.second.mFrames = 1;
-    tmp.second.mOffset = 16;
-    tmp.second.mBorder = 0;
+    tmp.first.load(":/move_head_left.png");
     mvPixmaps.push_back(tmp);
 
-    connect(&mTimer, &QTimer::timeout, this, &Head::next_frame);
-    mTimer.start(100);
+    tmp.first.load(":/move_head_right.png");
+    mvPixmaps.push_back(tmp);
+
+    tmp.first.load(":/move_head_dawn.png");
+    mvPixmaps.push_back(tmp);
+
+    connect(&mTimer, &QTimer::timeout, this, &Head::next_frame);    // Соединяет сигнал от объекта отправителя с методом этого объекта (next_frame)
+    mTimer.start(100);  // Запуск или перезапуск таймера с интервалом времени ожидания в 100 миллисекунд
 }
 
 QRectF Head::boundingRect() const {
-    return QRectF(0, 0, 16, 32);
+    return QRectF(0, 0, 16, 16);    // ограничивающий прамоугольник
 }
 
 void Head::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
-    painter->drawPixmap(0, 0, mvPixmaps[0].first,
-            (_csd().mOffset * mCurrentFrame + _csd().mBorder), 0, _csd().mWidth, _csd().mHeight);
+    painter->drawPixmap(0, 0, mvPixmaps[(int)mState].first,
+            (_csd().mOffset * mCurrentFrame + _csd().mBorder), 0, _csd().mWidth, _csd().mHeight);   // drawPixmap - метод класса QPainter (почитай)
 }
 
 const Head::spriteData &Head::_csd()const {
@@ -81,42 +39,61 @@ const Head::spriteData &Head::_csd()const {
 }
 
 void Head::next_frame() {
-    switch (mState)
+    switch (mState) // текущее состояние
     {
-    case eState::Moving: {
+    case eState::Moving: { // если состояние "движение вверх", то работает функция для движения вверх (остальное аналогично)
         move();
         break;
     }
-    case eState::Eat: {
+    case eState::Move_left: {
+        move_left();
         break;
     }
-    case eState::End: {
+    case eState::Move_right: {
+        move_right();
+        break;
+    }
+    case eState::Move_dawn: {
+        move_dawn();
+        break;
+    }
+    case eState::Eat: { // потом напишу
+        break;
+    }
+    case eState::End: { // потом напишу
         break;
     }
     }
-    mCurrentFrame++;
-    if (mCurrentFrame >= mvPixmaps[(int)mState].second.mFrames) {
-        mCurrentFrame = 0;
+    QGraphicsItem::update();    // обновление графической сцены
+}
+
+void Head::move() { // движение вверх
+    if (mState != eState::Move_dawn) {  // если бошка не движется вниз
+        setPos(pos().x(), pos().y() - mDx); // передвигаем бошку (посмотри функции)
+        mState = eState::Moving;    // и меняем текущее состояние
     }
-    QGraphicsItem::update();
 }
 
-void Head::set_left_direction() {
-
+void Head::move_left() { // остальное аналогично предыдущей функции
+    if (mState != eState::Move_right) {
+        setPos(pos().x() - mDx, pos().y());
+        mState = eState::Move_left;
+    }
 }
 
-void Head::set_right_direction() {
-
+void Head::move_right() {
+    if (mState != eState::Move_left) {
+        setPos(pos().x() + mDx, pos().y());
+        mState = eState::Move_right;
+    }
 }
 
-void Head::move() {
-    setPos(pos().x(), pos().y() - mDx);
-    mState = eState::Moving;
+void Head::move_dawn() {
+    if (mState != eState::Moving) {
+        setPos(pos().x(), pos().y() + mDx);
+        mState = eState::Move_dawn;
+    }
 }
-
-//void Head::lerotate() {
-
-//}
 
 void Head::eat() {
 
@@ -126,9 +103,86 @@ void Head::end() {
 
 }
 
+Body::Body() { // эт я быталась замутить тело, но как-то не але (тут все то же, что и в классе хэд, кроме спрайтов) // дальше иди в файл view.cpp
+
+    mvPixmapsBody.reserve((int)eStateBody::BEnd);
+
+    QPair<QPixmap, spriteDataBody> tmp;
+
+    tmp.first.load(":/move_body_up.png");
+    mvPixmapsBody.push_back(tmp);
+
+    tmp.first.load(":/move_body_left.png");
+    mvPixmapsBody.push_back(tmp);
+
+    tmp.first.load(":/move_body_left.png");
+    mvPixmapsBody.push_back(tmp);
+
+    tmp.first.load(":/move_body_up.png");
+    mvPixmapsBody.push_back(tmp);
+
+    connect(&mTimerBody, &QTimer::timeout, this, &Body::next_frame_body);
+    mTimerBody.start(100);
+}
+QRectF Body::boundingRect() const {
+    return QRectF(0, 0, 16, 16);
+}
+
+void Body::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
+    painter->drawPixmap(0, 0, mvPixmapsBody[(int)mStateBody].first,
+            (_csd().mOffset * mCurrentFrame + _csd().mBorder), 0, _csd().mWidth, _csd().mHeight);
+}
+
+const Body::spriteDataBody &Body::_csd()const {
+    return mvPixmapsBody[(int)mStateBody].second;
+}
+
+void Body::next_frame_body() {
+    switch (mStateBody)
+    {
+    case eStateBody::BMoving: {
+        move_body();
+        break;
+    }
+    case eStateBody::BMove_left: {
+        move_left_body();
+        break;
+    }
+    case eStateBody::BMove_right: {
+        move_right_body();
+        break;
+    }
+    case eStateBody::BMove_dawn: {
+        move_dawn_body();
+        break;
+    }
+    case eStateBody::BEat: {
+        break;
+    }
+    case eStateBody::BEnd: {
+        break;
+    }
+    }
+    QGraphicsItem::update();
+}
 
 
-//Head::~Head()	{
-//    delete tail;
-//    delete next;
-//}
+void Body::move_body() {
+    setPos(pos().x(), pos().y() - mDx);
+    mStateBody = eStateBody::BMoving;
+}
+
+void Body::move_left_body() {
+    setPos(pos().x() - mDx, pos().y());
+    mStateBody = eStateBody::BMove_left;
+}
+
+void Body::move_right_body() {
+    setPos(pos().x() + mDx, pos().y());
+    mStateBody = eStateBody::BMove_right;
+}
+
+void Body::move_dawn_body() {
+    setPos(pos().x(), pos().y() + mDx);
+    mStateBody = eStateBody::BMove_dawn;
+}

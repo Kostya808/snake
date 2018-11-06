@@ -8,63 +8,89 @@
 #include <QTimer>
 #include <QVector>
 
-//class Body : public Base, public QObject, public QGraphicsItem
-//{
-//    Q_OBJECT
+// смотри класс Head
 
-//public:
-//    Body(int, int);
-//    void setx(int);
-//    void sety(int);
-//    ~Body() override;
+class Body : public QObject, public QGraphicsItem
+{
+    Q_OBJECT
 
-//private slots:
-//    void next_frame();
+    enum class eStateBody {
+        BMoving
+        ,BMove_left
+        ,BMove_right
+        ,BMove_dawn
+        ,BEat
+        ,BEnd
+    };
 
-//private:
-//    int mWidth{0};
-//    int mHeight{0};
-//    int mFrames{0};
-//    int mCurrent{0};
-//    int mOffset{0};
-//    int mBorder{0};
+    struct spriteDataBody {
+        int mWidth{16};
+        int mHeight{16};
+        int mFrames{1};
+        int mCurrentFrame{0};
+        int mOffset{16};
+        int mBorder{0};
+    };
 
-//    QPixmap mPixMap;
-//    QTimer mTimer;
+public:
+    Body();
 
-//    int coox;
-//    int cooy;
-//    Body *next;
-//};
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    void move_body();
+    void move_left_body();
+    void move_right_body();
+    void move_dawn_body();
+    void eat();
+    void end();
+
+private slots:
+    void next_frame_body();
+
+private:
+    const spriteDataBody &_csd() const;
+    qreal mDx{2.};
+    eStateBody mStateBody{eStateBody::BMoving};
+
+    int mCurrentFrame{0};
+    QTimer mTimerBody;
+
+    QVector<QPair<QPixmap, spriteDataBody>> mvPixmapsBody;
+};
 
 class Head : /*public Base,*/ public QObject, public QGraphicsItem
 {
     Q_OBJECT
 
-enum class eState {
-    Moving
-    ,Eat
-    ,End
+enum class eState { // состояния бошки:
+    Moving          // движение вверх
+    ,Move_left      // налево
+    ,Move_right     // направо
+    ,Move_dawn      // вниз
+    ,Eat            // похавал
+    ,End            // умер
 };
 
-struct spriteData {
-    int mWidth{0};
-    int mHeight{0};
-    int mFrames{0};
-    int mCurrentFrame{0};
-    int mOffset{0};
-    int mBorder{0};
+struct spriteData {         // параметры спрайта:
+    int mWidth{16};         // ширина
+    int mHeight{16};        // высота
+    int mFrames{1};         // кол-во спрайтов
+    int mCurrentFrame{0};   // текущий спрайт
+    int mOffset{16};        // сдвиг
+    int mBorder{0};         // кол-во пикселей меджу спрайтами
 };
 
 public:
-    Head(/*int, int, int, int*/);
+    Head();
 
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    QRectF boundingRect() const override;   // прямоугольник, ограничивающий объект на графической сцене (функция boundingRect() перегружена (override))
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;    // отрисовка объекта на графической сцене
 
-    void set_left_direction();
-    void set_right_direction();
     void move();
+    void move_left();
+    void move_right();
+    void move_dawn();
     void eat();
     void end();
 
@@ -72,20 +98,15 @@ private slots:
     void next_frame();
 
 private:
+    Body body;  // пыталась замутить тело
     const spriteData &_csd() const;
-    qreal mDx{2.};
-    eState mState{eState::Moving};
+    qreal mDx{2.};  // шаг передвижения
+    eState mState{eState::Moving};  // текущее состояние
 
-    int mCurrentFrame{0};
-    QTimer mTimer;
+    int mCurrentFrame{0};   // текущий спрайт
+    QTimer mTimer;          // таймер
 
-    QVector<QPair<QPixmap, spriteData>> mvPixmaps;
-
-//    int new_x, new_y, score, type_body, type_head;
-//    char course;
-//    Body *next;
-//    Body *tail;
-
+    QVector<QPair<QPixmap, spriteData>> mvPixmaps;  // вектор пар <картинка, ее данные>
 };
-
+// иди в class_head.cpp
 #endif

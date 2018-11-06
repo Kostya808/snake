@@ -2,5 +2,11 @@
     <qresource prefix="/pics"/>
     <qresource prefix="/">
         <file>Snake.png</file>
+        <file>move_head_up.png</file>
+        <file>move_head_right.png</file>
+        <file>move_head_left.png</file>
+        <file>move_head_dawn.png</file>
+        <file>move_body_up.png</file>
+        <file>move_body_left.png</file>
     </qresource>
 </RCC>

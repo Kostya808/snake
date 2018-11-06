@@ -16,12 +16,10 @@ public:
 private slots:
     void btn_Pause_clicked(Qt::MouseButton);
     void keyReleaseEvent(QKeyEvent*) override;
-    //void btn_Restart_clicked(Qt::MouseButton);
 
 private:
     void _init_view_elements();
-    button mBtnPause;
-    //button mBtnRestart;
+    button mBtnPause;   // button - это класс кнопки
     Head Ssnake;
     QGraphicsScene mScene;
     Window3 *pause_menu;

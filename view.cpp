@@ -1,8 +1,12 @@
 #include "view.h"
 #include <QDebug>
+#include <QKeyEvent>
+#include <QGraphicsItem>
+#include <QPointF>
 
 View::View()
 {
+    // в конструкторе мутим графическую сцену
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -18,29 +22,39 @@ View::View()
     _init_view_elements();
 }
 
-void View::_init_view_elements() {
+void View::_init_view_elements() {  // инициализация элементов графической сцены
+    // кнопка "Pause"
     mBtnPause.setPos(45, 45);
     mBtnPause.setGeometry(100, 50);
     connect(&mBtnPause, &button::btnMouseReleaseEvent, this, &View::btn_Pause_clicked);
-    //mBtnRestart.setPos(150, 45);
-    //mBtnRestart.setGeometry(100, 50);
-    //connect(&mBtnRestart, &button::btnMouseReleaseEvent, this, &View::btn_Restart_clicked);
-    Ssnake.setPos(100, 300);
-    mScene.addItem(&mBtnPause);
-    mScene.addItem(&Ssnake);
-    //mScene.addItem(&mBtnRestart);
+    // змея
+    Ssnake.setPos(100, 300); // позиция (координаты) на сцене
+    mScene.addItem(&mBtnPause); // добавление кнопки
+    mScene.addItem(&Ssnake);    // добавление змеи
 }
 
-void View::btn_Pause_clicked(Qt::MouseButton) {
+void View::btn_Pause_clicked(Qt::MouseButton) { // обработка событий при нажатии на "Pause"
     pause_menu = new Window3(this);
     pause_menu->show();
 }
 
-void View::keyReleaseEvent(QKeyEvent *apEvent) {
-
+void View::keyReleaseEvent(QKeyEvent *apEvent) { // обработка событий при нажатии на клавиши
+    switch (apEvent->key()) {
+    case Qt::Key_A: {
+        Ssnake.move_left();
+        break;
+    }
+    case Qt::Key_D: {
+        Ssnake.move_right();
+        break;
+    }
+    case Qt::Key_W: {
+        Ssnake.move();
+        break;
+    }
+    case Qt::Key_S: {
+        Ssnake.move_dawn();
+        break;
+    }
+    }
 }
-
-//void View::btn_Restart_clicked(Qt::MouseButton) {
-//    qWarning() <<"ty";
-//}
-

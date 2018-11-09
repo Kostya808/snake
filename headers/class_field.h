@@ -2,10 +2,9 @@
 #define CLASS_FIELD_H
 #include <iostream>
 
-#include "class_fruit.h"
-
 class Body;
 class Head;
+class Fruit;
 
 class Fields
 {
@@ -13,7 +12,7 @@ class Fields
 public:
 	int **snake_matrix;
 	int size;	
-	Fields() : size(40) {
+	Fields() : size(40) { 
 		snake_matrix = new int* [size];
 		
 		for (i = 0; i < size; i++) {

@@ -8,13 +8,13 @@ void print(Fields * s, Head * h1, Head * h2) {
 	int i, j;
 	for(i = 0; i < s->size; i++) {
 		for(j = 0; j < s->size; j++) {
-			if(s->snake_matrix[i][j] == h1->type_head)
+			if(s->snake_matrix[i][j] == h1->Get_Type_head())
 				printw("K ");
-            else if(s->snake_matrix[i][j] == h2->type_head)
+            else if(s->snake_matrix[i][j] == h2->Get_Type_head())
                 printw("S ");
-			else if(s->snake_matrix[i][j] == h1->type_body)
+			else if(s->snake_matrix[i][j] == h1->Get_Type_body())
                 printw("O ");
-            else if(s->snake_matrix[i][j] == h2->type_body)
+            else if(s->snake_matrix[i][j] == h2->Get_Type_body())
                 printw("0 ");
             else if(s->snake_matrix[i][j] == 3)
                 printw("A ");
@@ -27,8 +27,8 @@ void print(Fields * s, Head * h1, Head * h2) {
 		}
 		printw("\n");
 	}
-        printw("Score player 1: %d\n", h1->score);
-        printw("Score player 2: %d\n", h2->score);
+        printw("Score player 1: %d\n", h1->Get_score());
+        printw("Score player 2: %d\n", h2->Get_score());
     endwin();
 }
 
@@ -51,65 +51,65 @@ void control(Head *h1, Head*h2) {
 	if(kbhit() == 1) {
         switch(getch()){
             case KEY_UP:
-      	        h1->course = 't';
+      	        h1->Set_Type_head('t');
                 break;
             case KEY_DOWN:
-      	        h1->course = 'd';
+      	        h1->Set_Type_head('d');
                 break;
             case KEY_RIGHT:
-      	        h1->course = 'r';
+      	        h1->Set_Type_head('r');
                 break;
             case KEY_LEFT:
-      	        h1->course = 'l';
+      	        h1->Set_Type_head('l');
                 break;
             case 119:
-                h2->course = 't';
+                h2->Set_Type_head('t');
                 break;
             case 115:
-                h2->course = 'd';
+                h2->Set_Type_head('d');
                 break;
             case 100:
-                h2->course = 'r';
+                h2->Set_Type_head('r');
                 break;
             case 97:
-                h2->course = 'l';
+                h2->Set_Type_head('l');
                 break;
         }
 	}
 }
 
 int automotion(Fields * s, Head *h) {
-	if(h->course == 't') 
-      		h->new_x = h->x - 1;
-	if(h->course == 'd') 
-      		h->new_x = h->x + 1;
-	if(h->course == 'r') 
-     		h->new_y = h->y + 1;
-	if(h->course == 'l') 
-      		h->new_y = h->y - 1;
-    if((s->snake_matrix[h->new_x][h->new_y] != 0 && //проверка на возможность хода
-        s->snake_matrix[h->new_x][h->new_y] != 3 &&
-        s->snake_matrix[h->new_x][h->new_y] != 4)) { //
-        if(h->new_x == h->next->x && h->new_y == h->next->y) { //При случае движения в обратную сторону двигаться дальше
-            if(h->course == 't') {
-                h->new_x = h->x + 1;
-                h->new_y = h->y;
-                h->course = 'd';
+	if(h->Get_Type_head_course() == 't') 
+      		h->Set_new_x(h->Get_X() - 1);
+	if(h->Get_Type_head_course() == 'd') 
+      		h->Set_new_x(h->Get_X() + 1);
+	if(h->Get_Type_head_course() == 'r') 
+     		h->Set_new_y(h->Get_Y() + 1);
+	if(h->Get_Type_head_course() == 'l') 
+      		h->Set_new_y(h->Get_Y() - 1);
+    if((s->snake_matrix[h->Get_new_x()][h->Get_new_y()] != 0 && //проверка на возможность хода
+        s->snake_matrix[h->Get_new_x()][h->Get_new_y()] != 3 &&
+        s->snake_matrix[h->Get_new_x()][h->Get_new_y()] != 4)) { //
+        if(h->Get_new_x() == h->next->Get_X() && h->Get_new_y() == h->next->Get_Y()) { //При случае движения в обратную сторону двигаться дальше
+            if(h->Get_Type_head_course() == 't') {
+                h->Set_new_x(h->Get_X() + 1);
+                h->Set_new_y(h->Get_Y());
+                h->Set_Type_head('d');
             }
-            else if(h->course == 'd') {
-                h->new_x = h->x - 1;
-                h->new_y = h->y;
-                h->course = 't';
+            else if(h->Get_Type_head_course() == 'd') {
+                h->Set_new_x(h->Get_X() - 1);
+                h->Set_new_y(h->Get_Y());
+                h->Set_Type_head('t');
             }
-            else if(h->course == 'r') {
-                h->new_x = h->x;
-                h->new_y = h->y - 1;
-                h->course = 'l';
+            else if(h->Get_Type_head_course() == 'r') {
+                h->Set_new_x(h->Get_X());
+                h->Set_new_y(h->Get_Y() - 1);
+                h->Set_Type_head('l');
             }
             else {
-                h->new_x = h->x;
-                h->new_y = h->y + 1;
-                h->course = 'r';
+                h->Set_new_x(h->Get_X());
+                h->Set_new_y(h->Get_Y() + 1);
+                h->Set_Type_head('r');
             }
         }
         else
@@ -119,7 +119,7 @@ int automotion(Fields * s, Head *h) {
 }
 
 int check_head(Head *h1, Head *h2) {
-    if(h1->x == h2->x && h1->y == h2->y) {
+    if(h1->Get_X() == h2->Get_X() && h1->Get_Y() == h2->Get_Y()) {
         return 0;
     }
     return 1;

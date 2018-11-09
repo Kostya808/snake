@@ -123,10 +123,6 @@ Body* Fields::create_body(Head *h) {
 	return NULL;
 }
 
-int Fields::Get_size(){
-	return size;
-}
-
 void Fields::print(Head * h1, Head * h2) {
 	initscr();
 	clear();

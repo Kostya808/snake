@@ -9,8 +9,8 @@ class Fruit;
 class Fields
 {
 	int i, j, size;	
-public:
 	int **snake_matrix;
+public:
 	Fields() : size(40) { //перегрузка конструктора
 		initial_field();
 	}
@@ -24,7 +24,6 @@ public:
 	Body* create_body(Head *h);
 	void eating_fruit(Fruit *f, Head *h);
 	void create(Body *&node, Head *h);
-	int Get_size();
 	void print(Head * h1, Head * h2);
 	void print(Head * h);
 	int automotion(Head *h);

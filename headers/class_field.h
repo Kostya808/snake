@@ -20,7 +20,7 @@ public:
 	}
 	void initial_field();
 	void initial_snake_making(Head *h);
-	int field_update(Fruit *f1, Fruit *f2, Head *h);
+	int field_update(Fruit *f[], Head *h);
 	Body* create_body(Head *h);
 	void eating_fruit(Fruit *f, Head *h);
 	void create(Body *&node, Head *h);

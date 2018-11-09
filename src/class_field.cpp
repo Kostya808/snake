@@ -32,8 +32,8 @@ void Fields::initial_snake_making(Head *h){
 	create(h->next, h);
 }
 
-int Fields::field_update(Fruit *f1, Fruit *f2, Head *h) {
-	int buf_x, buf_y, buf2_x, buf2_y, flag = 0;
+int Fields::field_update(Fruit *f[], Head *h) {
+	int buf_x, buf_y, buf2_x, buf2_y, flag = 0, i;
 	Body* bypass = h->next;
 	buf_x = h->Get_X();
 	buf_y = h->Get_Y();
@@ -52,13 +52,11 @@ int Fields::field_update(Fruit *f1, Fruit *f2, Head *h) {
 		h->tail->Set(buf2_x, buf2_y);
 		buf2_x = 0;
 		buf2_x = 0;
-		if (f1->Get_X() == h->Get_new_x() && f1->Get_Y() == h->Get_new_y()) {
-			eating_fruit(f1, h);
-			flag = 1;
-		}
-		if (f2->Get_X() == h->Get_new_x() && f2->Get_Y() == h->Get_new_y()) {
-			eating_fruit(f2, h);
-			flag = 1;
+		for(i = 0; i < 3; i++) {
+			if (f[i]->Get_X() == h->Get_new_x() && f[i]->Get_Y() == h->Get_new_y()) {
+				eating_fruit(f[i], h);
+				flag = 1;
+			}
 		}
 		h->Set(h->Get_new_x(), h->Get_new_y());
 	}

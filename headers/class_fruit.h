@@ -16,8 +16,6 @@ public:
 	int Get_Y();
 	void Set(char set_type);
 	char Get_type();
-	void fruit_making(Fields * s);
-	void fruit_print(Fields * s);
 	void Set_score(int set_score);
 	int Get_score();
 	void Set_growth(int set_growth);

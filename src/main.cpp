@@ -16,13 +16,13 @@ int main() {
 	s.initial_snake_making(&h1);//Инициализация голов змеек
 	s.initial_snake_making(&h2);//
 	while(flag1 == 1 && flag2 == 1 && flag3 == 1) {
-		print(&s, &h1, &h2);//Вывод дмумернного массива
-		f1.fruit_print(&s);//Инициализация фруктов
-		f2.fruit_print(&s);//
+		s.print(&h1, &h2);//Вывод дмумернного массива
+		s.add_fruit(&s, &f1);//Инициализация фруктов
+		s.add_fruit(&s, &f2);//
 		control(&h1, &h2);//Получение направления движения 
 
-		flag1 = automotion(&s, &h1);//Шаг змейки
-		flag2 = automotion(&s, &h2);//
+		flag1 = s.automotion(&h1);//Шаг змейки
+		flag2 = s.automotion(&h2);//
 
 		fast1 = s.field_update(&f1, &f2, &h1);//Обновление двуммерного массива с условием хода
 		fast2 = s.field_update(&f1, &f2, &h2);//

@@ -1,8 +1,6 @@
 #ifndef CLASS_HEAD_H
 #define CLASS_HEAD_H
 
-#include "base_class.h" 
-
 class Body : public Base
 {
 public:

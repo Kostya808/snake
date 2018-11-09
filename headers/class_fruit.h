@@ -1,8 +1,9 @@
 #ifndef CLASS_FRUIT_H
 #define CLASS_FRUIT_H
 
-#include "classes.h"
 #include "base_class.h" 
+
+class Fields;
 
 class Fruit : public Base
 {

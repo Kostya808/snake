@@ -1,9 +1,12 @@
 #ifndef CLASS_FIELD_H
 #define CLASS_FIELD_H
 #include <iostream>
+
 #include "class_fruit.h"
-#include "classes.h"
-	
+
+class Body;
+class Head;
+
 class Fields
 {
 	int i, j;

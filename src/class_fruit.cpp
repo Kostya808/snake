@@ -1,6 +1,6 @@
 #include <ctime>
 #include <cstdlib>
-#include "class_field.h"
+#include <class_field.h>
 
 void Fruit::fruit_making(Fields *s) {
 	int flag = 1, rand_type;

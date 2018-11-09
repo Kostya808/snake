@@ -1,7 +1,8 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
-#include "classes.h"
+class Head;
+class Fields;
 
 int kbhit();
 void print(Fields * s, Head * h1, Head * h2);

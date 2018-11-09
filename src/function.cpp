@@ -1,6 +1,6 @@
 #include <ncurses.h>
-#include "class_field.h"
-#include "class_head.h"
+#include <class_field.h>
+#include <class_head.h>
 
 void print(Fields * s, Head * h1, Head * h2) {
 	initscr();
@@ -9,9 +9,9 @@ void print(Fields * s, Head * h1, Head * h2) {
 	for(i = 0; i < s->size; i++) {
 		for(j = 0; j < s->size; j++) {
 			if(s->snake_matrix[i][j] == h1->type_head)
-				printw("@ ");
+				printw("K ");
             else if(s->snake_matrix[i][j] == h2->type_head)
-                printw("Q ");
+                printw("S ");
 			else if(s->snake_matrix[i][j] == h1->type_body)
                 printw("O ");
             else if(s->snake_matrix[i][j] == h2->type_body)

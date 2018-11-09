@@ -1,10 +1,10 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <ncurses.h>
-#include "function.h"
-#include "class_field.h"
-#include "class_fruit.h"
-#include "class_head.h"
+#include <function.h>
+#include <class_field.h>
+#include <class_fruit.h>
+#include <class_head.h>
 
 int main() {
 	int flag1 = 1, flag2 = 1, flag3 = 1, pause = 170000, fast1 = 0, fast2 = 0;
@@ -32,7 +32,7 @@ int main() {
 		usleep(pause);//Пауза
 
 		if ((fast1 == 1 || fast2 == 1) && pause > 70000) {//Повышение скорости после съедания фрукта
-			pause -= 10000;
+			pause -= 5000;
 			fast1 = 0;
 			fast2 = 0;
 		}

@@ -1,6 +1,6 @@
-#include "class_field.h"
-#include "class_fruit.h"
-#include "class_head.h"
+#include <class_field.h>
+#include <class_fruit.h>
+#include <class_head.h>
 
 void Fields::initial_snake_making(Head *h){
 	snake_matrix[h->x][h->y] = h->type_head;

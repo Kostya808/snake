@@ -48,6 +48,29 @@ void control(Head *h1, Head*h2) {
 	}
 }
 
+void control_one(Head *h1) {
+	noecho(); 
+	keypad(stdscr, true); 
+	cbreak();
+    nodelay(stdscr, TRUE);
+	if (kbhit() == 1) {
+        switch(getch()) {
+            case KEY_UP:
+      	        h1->Set_Type_head('t');
+                break;
+            case KEY_DOWN:
+      	        h1->Set_Type_head('d');
+                break;
+            case KEY_RIGHT:
+      	        h1->Set_Type_head('r');
+                break;
+            case KEY_LEFT:
+      	        h1->Set_Type_head('l');
+                break;
+        }
+	}
+}
+
 int check_head(Head *h1, Head *h2) {
     if (h1->Get_X() == h2->Get_X() && h1->Get_Y() == h2->Get_Y()) {
         return 0;
@@ -99,5 +122,5 @@ int mode() {
         }
     }
     endwin();
-    return 0;
+    return choice;
 }

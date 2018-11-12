@@ -16,6 +16,7 @@ int Fruit::Get_Y(){
 void Fruit::Set(char set_type) {
 	type = set_type;
 }
+
 char Fruit::Get_type() {
 	return type;
 }
@@ -23,18 +24,23 @@ char Fruit::Get_type() {
 void Fruit::Set_score(int set_score) {
 	score = set_score;
 }
+
 int Fruit::Get_score() {
 	return score;
 }
+
 void Fruit::Set_growth(int set_growth) {
 	growth = set_growth;
 }
+
 int Fruit::Get_growth() {
 	return growth;
 }
+
 void Fruit::Set_life(int set_life) {
 	life = set_life;
 }
+
 int Fruit::Get_life() {
 	return life;
 }

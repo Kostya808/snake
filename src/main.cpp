@@ -13,6 +13,8 @@ int main() {
 	fruit[0] = new Fruit;
 	fruit[1] = new Fruit;
 	fruit[2] = new Fruit;
+	int m = 0;
+	m = mode();
 	Head h1(20, 30, 1, 2);
 	Head h2(20, 10, 6, 7);
 	s.initial_snake_making(&h1);//Инициализация голов змеек

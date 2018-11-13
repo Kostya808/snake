@@ -1,33 +1,33 @@
 #include <class_head.h>
 
-void Body::Set(int set_x, int set_y){
+void Body::Set(int set_x, int set_y) {
 	x = set_x;
 	y = set_y;
 }
 
-int Body::Get_X(){
+int Body::Get_X() {
 	return x;
 }
 
-int Body::Get_Y(){
+int Body::Get_Y() {
 	return y;
 }
 
-Body::~Body(){
-	if(next != NULL)
+Body::~Body() {
+	if (next != NULL)
 		delete next;
 }
 
-void Head::Set(int set_x, int set_y){
+void Head::Set(int set_x, int set_y) {
 	x = set_x;
 	y = set_y;
 }
 
-int Head::Get_X(){
+int Head::Get_X() {
 	return x;
 }
 
-int Head::Get_Y(){
+int Head::Get_Y() {
 	return y;
 }
 
@@ -55,15 +55,15 @@ int Head::Get_Type_body() {
 	return type_body;
 }
 
-void Head::Set_score(int set_score){
+void Head::Set_score(int set_score) {
 	score = set_score;
 }
 
-int Head::Get_score(){
+int Head::Get_score() {
 	return score;
 }
 
-void Head::Set_new_x(int set_new_x){
+void Head::Set_new_x(int set_new_x) {
 	new_x = set_new_x;
 }
 
@@ -79,9 +79,9 @@ int Head::Get_new_y() {
 	return new_y;
 }
 
-Head::~Head(){
-	if(tail != NULL)
+Head::~Head() {
+	if (tail != NULL)
 		delete tail;
-	if(next != NULL)
+	if (next != NULL)
 		delete next;
 }

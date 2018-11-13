@@ -71,14 +71,25 @@ void Game::game() {
 	        }
         }
     }
+    endwin();
 }
 
 int Game::loser() {
+    int row, col;
+
+    initscr();
+
+    clear();
+
+    getmaxyx(stdscr, row, col);
+
 	if (flag1 == 0)
-		printf("Первый игрок проиграл\n");
+		mvwprintw(stdscr, row / 2, (col - 30) / 2, "The first player died");
 	else if (flag2 == 0)
-		printf("Второй игрок проиграл\n");
+		mvwprintw(stdscr, row / 2, (col - 30) / 2, "The first second died");
 	else if (flag3 == 0)
-		printf("Вы съели друг друга\n");
+		mvwprintw(stdscr, row / 2, (col - 30) / 2, "You ate each other");
+    getch();
+    endwin();
 	return 0;
 }

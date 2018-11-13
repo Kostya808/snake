@@ -2,7 +2,7 @@
 #include <class_field.h>
 #include <class_head.h>
 
-int kbhit(){ //Функция проверки на нажатость клавиши
+int kbhit() { //Функция проверки на нажатость клавиши
     int ch = getch();
 
     if (ch != ERR) {

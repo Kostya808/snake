@@ -5,7 +5,7 @@
 #include <ctime>
 #include <cstdlib>
 
-Fields::Fields(int set_size){ 
+Fields::Fields(int set_size) { 
 	size = set_size;
 	initial_field();
 }
@@ -26,7 +26,7 @@ void Fields::initial_field() {
 	}
 }
 
-void Fields::initial_snake_making(Head *h){
+void Fields::initial_snake_making(Head *h) {
 	snake_matrix[h->Get_X()][h->Get_Y()] = h->Get_Type_head();
 	h->next = create_body(h);
 	create(h->next, h);
@@ -120,7 +120,7 @@ Body* Fields::create_body(Head *h) {
 		y = h->tail->Get_Y() - 1;
 		flag = 1;
 	}
-	if(flag == 1) {
+	if (flag == 1) {
 		Body* body = new Body(x, y);
 		h->tail->Set(x, y);
 		return body;

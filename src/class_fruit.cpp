@@ -1,15 +1,15 @@
 #include <class_fruit.h>
 
-void Fruit::Set(int set_x, int set_y){
+void Fruit::Set(int set_x, int set_y) {
 	x = set_x;
 	y = set_y;
 }
 
-int Fruit::Get_X(){
+int Fruit::Get_X() {
 	return x;
 }
 
-int Fruit::Get_Y(){
+int Fruit::Get_Y() {
 	return y;
 }
 

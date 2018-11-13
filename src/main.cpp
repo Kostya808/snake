@@ -6,7 +6,7 @@
 int main() {
 	Game g;
 	g.game();
-    endwin();//выход из ncurses
+	endwin();
 	g.loser();
 	return 0;
 }

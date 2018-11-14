@@ -3,14 +3,17 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include <class_head.h>
+#include <class_field.h>
+#include <class_fruit.h>
+#include <cstdio>
 
 Game::Game() {
-    flag1 = 1, flag2 = 1, flag3 = 1, pause = 170000, fast1 = 0, fast2 = 0;
+    flag1 = 1, flag2 = 1, flag3 = 1, pause = 170000, fast1 = 0, fast2 = 0, m = 0;
 }
 
 void Game::game() {
     Fields s;
-    int m = 0, i;
+    int i;
     m = mode();
     if (m == 1) {
         Fruit *fruit[3];
@@ -49,7 +52,7 @@ void Game::game() {
             Fruit *fruit[2];
             fruit[0] = new Fruit;
             fruit[1] = new Fruit;
-            Head h1(20, 10, 6, 7);
+            Head h1(20, 20, 6, 7);
             s.initial_snake_making(&h1);
             while (flag1 == 1 && flag2 == 1) {
                 s.print(&h1);
@@ -74,22 +77,15 @@ void Game::game() {
     endwin();
 }
 
-int Game::loser() {
-    int row, col;
-
-    initscr();
-
-    clear();
-
-    getmaxyx(stdscr, row, col);
-
-	if (flag1 == 0)
-		mvwprintw(stdscr, row / 2, (col - 30) / 2, "The first player died");
-	else if (flag2 == 0)
-		mvwprintw(stdscr, row / 2, (col - 30) / 2, "The first second died");
-	else if (flag3 == 0)
-		mvwprintw(stdscr, row / 2, (col - 30) / 2, "You ate each other");
-    getch();
-    endwin();
-	return 0;
+void Game::loser() {
+    if(m == 1) {
+        if (flag1 == 0)
+        	printf("The first player died\n");
+        else if (flag2 == 0)
+        	printf("The second player died\n");
+        else if (flag3 == 0)
+        	printf("You ate each other\n");
+    }
+    if(m == 0)
+        printf("You lose\n");
 }

@@ -87,6 +87,8 @@ int mode() {
 
     keypad(stdscr, true);
 
+    curs_set(0);
+    
     while (fl == 0) {
         clear();
         mvwprintw(stdscr, (y - 8) / 2, (x - 35) / 2, "Choose the number of players\n");
@@ -99,9 +101,9 @@ int mode() {
                 }
             } else {
                 if (i == 0) {
-                    mvwprintw(stdscr, (y + 2 * i) / 2, (x - 15) / 2, "One player");
+                    mvwprintw(stdscr, (y + 2 * i) / 2, (x - 15) / 2, " One player");
                 } else {
-                    mvwprintw(stdscr, (y  + 2 * i) / 2, (x - 15) / 2, "Two players");
+                    mvwprintw(stdscr, (y  + 2 * i) / 2, (x - 15) / 2, " Two players");
                 }
             }
         }
@@ -109,13 +111,13 @@ int mode() {
             case KEY_UP:
                 if (choice > 0) {
                     choice--;
-                    break;
                 }
+                break;
             case KEY_DOWN:
                 if (choice != 1) {
                     choice++;
-                    break;
                 }
+                break;
             case 10:
                 fl = 1;
                 break;

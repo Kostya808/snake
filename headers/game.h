@@ -1,11 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <class_field.h>
-#include <class_fruit.h>
-#include <cstdio>
-#include <iostream>
-
 class Game
 {
 private:
@@ -15,12 +10,11 @@ private:
     int pause;
     int fast1;
     int fast2;
-
+    int m;
 public:
     Game();
     void game();
-    int loser();
-
+    void loser();
 };
 
 #endif

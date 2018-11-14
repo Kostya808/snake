@@ -1,7 +1,7 @@
 All: snake
 
-snake: main.o function.o class_field.o class_fruit.o class_head_and_body.o
-	g++ -Wall -o snake main.o function.o class_field.o class_fruit.o class_head_and_body.o -lncurses 
+snake: main.o function.o class_field.o class_fruit.o class_head_and_body.o game.o
+	g++ -Wall -o snake main.o function.o class_field.o class_fruit.o class_head_and_body.o game.o -lncurses 
 
 main.o: src/main.cpp
 	g++ -Wall -o main.o -c src/main.cpp -Iheaders
@@ -17,6 +17,9 @@ class_fruit.o: src/class_fruit.cpp
 
 class_head_and_body.o: src/class_head_and_body.cpp
 	g++ -Wall -o class_head_and_body.o -c src/class_head_and_body.cpp -Iheaders
+
+game.o: src/game.cpp
+	g++ -Wall -o game.o -c src/game.cpp -Iheaders
 
 clean:
 	rm -rf *.o
